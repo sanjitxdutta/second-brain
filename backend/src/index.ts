@@ -4,6 +4,7 @@ import { connectDB } from './config/db';
 import dotenv from 'dotenv';
 import userRouter from './routes/userRoute';
 import contentRouter from './routes/contentRoute';
+import shareRouter from './routes/shareRoute';
 dotenv.config();
 
 // app config
@@ -20,6 +21,7 @@ connectDB();
 // api endpoints
 app.use("/api/user", userRouter);
 app.use("/api/content", contentRouter);
+app.use("/api/share", shareRouter);
 
 app.get("/", (req, res) => {
     res.send("API Working");

@@ -5,7 +5,7 @@ import authMiddleware from "../middlewares/userAuth";
 
 const contentRouter = express.Router();
 
-contentRouter.post("/", authMiddleware, getContent);
+contentRouter.get("/", authMiddleware, getContent);
 
 contentRouter.post("/add", authMiddleware, addContent);
 
