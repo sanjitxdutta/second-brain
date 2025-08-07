@@ -3,6 +3,7 @@ import cors from 'cors';
 import { connectDB } from './config/db';
 import dotenv from 'dotenv';
 import userRouter from './routes/userRoute';
+import contentRouter from './routes/contentRoute';
 dotenv.config();
 
 // app config
@@ -18,6 +19,7 @@ connectDB();
 
 // api endpoints
 app.use("/api/user", userRouter);
+app.use("/api/content", contentRouter);
 
 app.get("/", (req, res) => {
     res.send("API Working");

@@ -3,7 +3,6 @@ import userModel from "../models/userModel";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt-ts";
 import { userSignupSchema, UserSignupInput } from "../validations/userValidation";
-import { ZodError } from "zod";
 
 const createToken = (id: string) => {
     if (!process.env.JWT_SECRET) {
