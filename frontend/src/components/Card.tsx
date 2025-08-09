@@ -49,7 +49,7 @@ const Card: React.FC<CardProps> = ({
     }, [link]);
 
     return (
-        <div className="bg-white rounded-xl shadow p-4 w-72">
+        <div className={`bg-white p-4 rounded-2xl shadow-sm border border-gray-200 flex flex-col`}>
 
             <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2 text-gray-600">
@@ -97,7 +97,7 @@ const Card: React.FC<CardProps> = ({
                     {tags.map((tag, index) => (
                         <span
                             key={index}
-                            className="text-xs bg-purple-300 text-purple-500 px-2 py-1 rounded-full"
+                            className="text-xs bg-purple-300 text-purple-500 px-2 py-1 rounded"
                         >
                             #{tag}
                         </span>
