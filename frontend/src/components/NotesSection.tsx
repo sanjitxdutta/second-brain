@@ -9,31 +9,31 @@ const NotesSection = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [notes, setNotes] = useState([
-  {
-    title: "Project Ideas",
-    subtitle: "Notes",
-    link: "https://sanjitxdutta.vercel.app/",
-    tags: ["productivity", "ideas"],
-    dateAdded: "2024-03-10",
-  },
-  // ... other initial notes
-]);
+    {
+      title: "Project Ideas",
+      subtitle: "Notes",
+      link: "https://sanjitxdutta.vercel.app/",
+      tags: ["productivity", "ideas"],
+      dateAdded: "2024-03-10",
+    },
+    // ... other initial notes
+  ]);
 
   return (
     <div className="px-4 md:px-8 py-4">
 
       <CreateContentModal
-  isOpen={isModalOpen}
-  onClose={() => setIsModalOpen(false)}
-  onSubmit={(formData) => {
-    const newNote = {
-      ...formData,
-      dateAdded: new Date().toISOString().split("T")[0], // today's date
-    };
-    setNotes((prevNotes) => [newNote, ...prevNotes]); // Add new note to top
-    setIsModalOpen(false);
-  }}
-/>
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSubmit={(formData) => {
+          const newNote = {
+            ...formData,
+            dateAdded: new Date().toISOString().split("T")[0], // today's date
+          };
+          setNotes((prevNotes) => [newNote, ...prevNotes]); // Add new note to top
+          setIsModalOpen(false);
+        }}
+      />
 
       <div className="md:hidden mb-4">
         <div className="flex items-center gap-2">
