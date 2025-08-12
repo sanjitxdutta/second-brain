@@ -3,27 +3,13 @@ import { Button } from "./Button";
 import Card from "./Card";
 import CreateContentModal from "./CreateContentModal";
 import { useState } from "react";
-import SignupModal from "./SignupModal";
 
 const NotesSection = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [notes, setNotes] = useState([
-    {
-      title: "Project Ideas",
-      subtitle: "Notes",
-      link: "https://sanjitxdutta.vercel.app/",
-      tags: ["productivity", "ideas"],
-      dateAdded: "2024-03-10",
-    },
-    // ... other initial notes
-  ]);
-
   return (
     <div className="px-4 md:px-8 py-4">
-
-      <SignupModal isOpen={true} />
 
       <div className="md:hidden mb-4">
         <div className="flex items-center gap-2">
@@ -68,7 +54,7 @@ const NotesSection = () => {
         />
       </div>
 
-      <div className="grid gap-4 grid-cols-1 md:grid-cols-4">
+      {/* <div className="grid gap-4 grid-cols-1 md:grid-cols-4">
         {notes.map((note, idx) => (
           <Card
             key={idx}
@@ -80,7 +66,7 @@ const NotesSection = () => {
             onDelete={() => console.log(`Delete card ${idx}`)}
           />
         ))}
-      </div>
+      </div> */}
 
 
 

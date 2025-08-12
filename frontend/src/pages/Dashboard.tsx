@@ -1,7 +1,7 @@
 import Navbar from "../components/Navbar";
 import NotesSection from "../components/NotesSection";
 
-export default function Home() {
+export default function Dashboard() {
   return (
     <div className="flex min-h-screen bg-gray-50">
       {/* Navbar */}

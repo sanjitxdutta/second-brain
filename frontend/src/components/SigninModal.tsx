@@ -1,64 +1,111 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { FaTimes } from "react-icons/fa";
 
-interface SignInModalProps {
+interface SigninModalProps {
+  isOpen: boolean;
   onClose: () => void;
+  onSwitchToSignup: () => void;
+  onSubmit: (formData: {
+    email: string;
+    password: string;
+  }) => void;
 }
 
-const SignInModal = ({ onClose }: SignInModalProps) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const SigninModal: React.FC<SigninModalProps> = ({
+  isOpen,
+  onClose,
+  onSwitchToSignup,
+  onSubmit,
+}) => {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  if (!isOpen) return null;
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Email:", email, "Password:", password);
+    onSubmit(formData);
+    setFormData({ email: "", password: "" });
+    onClose();
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50">
-      <div className="bg-white p-6 rounded-xl shadow-lg w-full max-w-sm">
-        
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+      <div className="bg-white rounded-lg shadow-lg w-full max-w-lg p-6 relative">
         {/* Header */}
-        <div className="flex justify-between items-center">
-          <h2 className="text-xl font-bold mb-4">Sign In</h2>
+        <div className="flex justify-between items-center mb-5">
+          <h2 className="text-xl font-semibold text-gray-800">Sign In</h2>
           <button
             onClick={onClose}
-            className="text-xl text-gray-500 hover:text-gray-800"
+            className="text-xl text-gray-500 hover:text-red-500 transition-colors"
           >
-            <FaTimes />
+            <FaTimes className="w-4 h-4" />
           </button>
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Email
+            </label>
             <input
               type="email"
-              placeholder="Email"
-              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:border-blue-500 placeholder:text-xs"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="you@example.com"
+              className="w-full border rounded py-2 px-3 text-sm"
+              required
             />
           </div>
+
           <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Password
+            </label>
             <input
               type="password"
-              placeholder="Password"
-              className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:border-blue-500 placeholder:text-xs"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="********"
+              className="w-full border rounded py-2 px-3 text-sm"
+              required
             />
           </div>
+
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors"
+            className="bg-purple-500 hover:bg-green-700 text-white py-2 px-4 rounded-lg"
           >
             Sign In
           </button>
         </form>
+
+        {/* Switch link */}
+        <p className="text-sm text-gray-600 mt-4">
+          Don’t have an account?{" "}
+          <button
+            type="button"
+            onClick={() => {
+              onClose();
+              onSwitchToSignup();
+            }}
+            className="text-blue-600 hover:underline"
+          >
+            Sign Up
+          </button>
+        </p>
       </div>
     </div>
   );
 };
 
-export default SignInModal;
+export default SigninModal;
