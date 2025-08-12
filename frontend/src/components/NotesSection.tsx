@@ -3,6 +3,7 @@ import { Button } from "./Button";
 import Card from "./Card";
 import CreateContentModal from "./CreateContentModal";
 import { useState } from "react";
+import SignupModal from "./SignupModal";
 
 const NotesSection = () => {
 
@@ -22,18 +23,7 @@ const NotesSection = () => {
   return (
     <div className="px-4 md:px-8 py-4">
 
-      <CreateContentModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onSubmit={(formData) => {
-          const newNote = {
-            ...formData,
-            dateAdded: new Date().toISOString().split("T")[0], // today's date
-          };
-          setNotes((prevNotes) => [newNote, ...prevNotes]); // Add new note to top
-          setIsModalOpen(false);
-        }}
-      />
+      <SignupModal isOpen={true} />
 
       <div className="md:hidden mb-4">
         <div className="flex items-center gap-2">
