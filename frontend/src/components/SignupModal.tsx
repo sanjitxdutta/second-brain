@@ -4,7 +4,7 @@ import { FaTimes } from "react-icons/fa";
 interface SignupModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSwitchToLogin: () => void;
+  onSwitchToSignin: () => void;
   onSubmit: (formData: {
     name: string;
     email: string;
@@ -15,7 +15,7 @@ interface SignupModalProps {
 const SignupModal: React.FC<SignupModalProps> = ({
   isOpen,
   onClose,
-  onSwitchToLogin,
+  onSwitchToSignin,
   onSubmit,
 }) => {
   const [formData, setFormData] = useState({
@@ -113,7 +113,7 @@ const SignupModal: React.FC<SignupModalProps> = ({
             type="button"
             onClick={() => {
               onClose();
-              onSwitchToLogin();
+              onSwitchToSignin();
             }}
             className="text-purple-500 hover:underline"
           >
