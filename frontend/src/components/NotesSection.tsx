@@ -1,34 +1,39 @@
 import { FaShareAlt, FaPlus } from "react-icons/fa";
 import { Button } from "./Button";
 import Card from "./Card";
+import CreateContentModal from "./CreateContentModal";
+import { useState } from "react";
 
 const NotesSection = () => {
-  const notes = [
-    {
-      title: "Project Ideas",
-      subtitle: "Notes",
-      link: "https://sanjitxdutta.vercel.app/",
-      tags: ["productivity", "ideas"],
-      dateAdded: "2024-03-10",
-    },
-    {
-      title: "How to Build a Second Brain",
-      subtitle: "Video",
-      link: "https://sanjitxdutta.vercel.app/",
-      tags: ["productivity", "learning"],
-      dateAdded: "2024-03-09",
-    },
-    {
-      title: "Productivity Tip",
-      subtitle: "Article",
-      link: "https://sanjitxdutta.vercel.app/",
-      tags: ["productivity", "learning"],
-      dateAdded: "2024-03-08",
-    },
-  ];
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [notes, setNotes] = useState([
+  {
+    title: "Project Ideas",
+    subtitle: "Notes",
+    link: "https://sanjitxdutta.vercel.app/",
+    tags: ["productivity", "ideas"],
+    dateAdded: "2024-03-10",
+  },
+  // ... other initial notes
+]);
 
   return (
     <div className="px-4 md:px-8 py-4">
+
+      <CreateContentModal
+  isOpen={isModalOpen}
+  onClose={() => setIsModalOpen(false)}
+  onSubmit={(formData) => {
+    const newNote = {
+      ...formData,
+      dateAdded: new Date().toISOString().split("T")[0], // today's date
+    };
+    setNotes((prevNotes) => [newNote, ...prevNotes]); // Add new note to top
+    setIsModalOpen(false);
+  }}
+/>
 
       <div className="md:hidden mb-4">
         <div className="flex items-center gap-2">
@@ -52,11 +57,11 @@ const NotesSection = () => {
             size="md"
             text="Add Content"
             startIcon={<FaPlus />}
+            onClick={() => setIsModalOpen(true)}
           />
         </div>
       </div>
 
-      {/* Mobile Buttons */}
       <div className="md:hidden flex gap-3 mb-4 w-full">
         <Button
           variant="secondary"
@@ -69,23 +74,23 @@ const NotesSection = () => {
           size="sm"
           text="Add Content"
           startIcon={<FaPlus />}
+          onClick={() => setIsModalOpen(true)}
         />
       </div>
-      {/* Cards */}
-      {/* Cards */}
-<div className="grid gap-4 grid-cols-1 md:grid-cols-4">
-  {notes.map((note, idx) => (
-    <Card
-      key={idx}
-      title={note.title}
-      subtitle={note.subtitle}
-      link={note.link}
-      tags={note.tags}
-      dateAdded={note.dateAdded}
-      onDelete={() => console.log(`Delete card ${idx}`)} // Optional
-    />
-  ))}
-</div>
+
+      <div className="grid gap-4 grid-cols-1 md:grid-cols-4">
+        {notes.map((note, idx) => (
+          <Card
+            key={idx}
+            title={note.title}
+            subtitle={note.subtitle}
+            link={note.link}
+            tags={note.tags}
+            dateAdded={note.dateAdded}
+            onDelete={() => console.log(`Delete card ${idx}`)}
+          />
+        ))}
+      </div>
 
 
 
