@@ -47,7 +47,10 @@ const NotesSection: React.FC<NotesSectionProps> = ({ selected }) => {
 
   useEffect(() => {
     if (token) {
-      fetchNotes();
+      setTimeout(() => {
+        fetchNotes();
+        console.log("hello");
+      }, 200); // small delay ensures API has the new user data
     }
   }, [token]);
 
