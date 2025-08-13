@@ -7,6 +7,7 @@ import { contentApi } from "../api/contentApi";
 import { useAuth } from "../context/AuthContext";
 import ShareModal from "./ShareModal";
 import { shareApi } from "../api/shareApi";
+import { toast } from "react-toastify";
 
 interface Note {
   _id: string;
@@ -41,6 +42,7 @@ const NotesSection: React.FC<NotesSectionProps> = ({ selected }) => {
       }
     } catch (err) {
       console.error("Failed to fetch notes", err);
+      toast.error("Failed to load notes. Please try again.");
       setNotes([]);
     }
   };
@@ -60,9 +62,11 @@ const NotesSection: React.FC<NotesSectionProps> = ({ selected }) => {
       if (res.success) {
         await fetchNotes();
         setIsModalOpen(false);
+        toast.success("Note added successfully! ✏️");
       }
     } catch (err) {
       console.error("Failed to add note", err);
+      toast.error("Failed to add note. Please try again.");
     }
   };
 
@@ -71,9 +75,11 @@ const NotesSection: React.FC<NotesSectionProps> = ({ selected }) => {
       const res = await contentApi.deleteNote(token, id);
       if (res.success) {
         setNotes((prev) => prev.filter((n) => n._id !== id));
+        toast.success("Note deleted successfully! 🗑");
       }
     } catch (err) {
       console.error("Failed to delete note", err);
+      toast.error("Failed to delete note. Please try again.");
     }
   };
 
@@ -86,9 +92,11 @@ const NotesSection: React.FC<NotesSectionProps> = ({ selected }) => {
 
         setShareLink(frontendLink);
         setIsShareModalOpen(true);
+        toast.success("Brain shared successfully! 🔗");
       }
     } catch (err) {
       console.error("Error sharing brain:", err);
+      toast.error("Error sharing brain. Please try again.");
     }
   };
 
