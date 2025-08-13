@@ -38,7 +38,7 @@ const SigninModal: React.FC<SigninModalProps> = ({
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg shadow-lg w-full max-w-lg p-6 relative">
-        {/* Header */}
+
         <div className="flex justify-between items-center mb-5">
           <h2 className="text-xl font-semibold text-gray-800">Sign In</h2>
           <button
@@ -49,7 +49,6 @@ const SigninModal: React.FC<SigninModalProps> = ({
           </button>
         </div>
 
-        {/* Form */}
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -89,7 +88,6 @@ const SigninModal: React.FC<SigninModalProps> = ({
           </button>
         </form>
 
-        {/* Switch link */}
         <p className="text-sm text-gray-600 mt-4">
           Don’t have an account?{" "}
           <button

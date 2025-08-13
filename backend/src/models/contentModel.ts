@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const contentSchema = new mongoose.Schema({
     type: {
         type: String,
-        enum: ["document", "tweet", "youtube", "link"],
+        enum: ["linkedin", "tweet", "youtube", "blog", "important", "resource"],
         required: true,
     },
     title: {
@@ -19,11 +19,6 @@ const contentSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    // tags: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: "tag",
-    //     required: true,
-    // },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "user",

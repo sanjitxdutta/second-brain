@@ -2,13 +2,80 @@ import { FaShareAlt, FaPlus } from "react-icons/fa";
 import { Button } from "./Button";
 import Card from "./Card";
 import CreateContentModal from "./CreateContentModal";
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
+import { contentApi } from "../api/contentApi";
+import { StoreContext } from "../context/StoreContext";
 
-const NotesSection = () => {
+interface Note {
+  _id: string;
+  type: string;
+  title: string;
+  link: string;
+  tags?: string;
+  createdAt: string;
+}
 
+interface NotesSectionProps {
+  selected: string;
+}
+
+type CreateNoteData = Omit<Note, "_id" | "createdAt">;
+
+const NotesSection: React.FC<NotesSectionProps> = ({ selected }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [notes, setNotes] = useState<Note[]>([]);
+  const { token } = useContext(StoreContext);
+
+  const fetchNotes = async () => {
+    try {
+      const res = await contentApi.getNotes(token)
+
+      if (res.success && Array.isArray(res.data)) {
+        setNotes(res.data);
+      } else {
+        setNotes([]);
+      }
+    } catch (err) {
+      console.error("Failed to fetch notes", err);
+      setNotes([]);
+    }
+  };
+
+  useEffect(() => {
+    if (token) {
+      fetchNotes();
+    }
+  }, [token]);
+
+  const handleCreateNote = async (formData: CreateNoteData) => {
+    try {
+      const res = await contentApi.addNote(formData, token);
+      if (res.success) {
+        await fetchNotes();
+        setIsModalOpen(false);
+      }
+    } catch (err) {
+      console.error("Failed to add note", err);
+    }
+  };
+
+  const handleDeleteNote = async (id: string) => {
+    try {
+      const res = await contentApi.deleteNote(token, id);
+      if (res.success) {
+        setNotes((prev) => prev.filter((n) => n._id !== id));
+      }
+    } catch (err) {
+      console.error("Failed to delete note", err);
+    }
+  };
+
+  const filteredNotes = selected
+    ? notes.filter((note) => note.type?.toLowerCase() === selected.toLowerCase())
+    : notes;
 
   return (
+
     <div className="px-4 md:px-8 py-4">
 
       <div className="md:hidden mb-4">
@@ -54,23 +121,32 @@ const NotesSection = () => {
         />
       </div>
 
-      {/* <div className="grid gap-4 grid-cols-1 md:grid-cols-4">
-        {notes.map((note, idx) => (
-          <Card
-            key={idx}
-            title={note.title}
-            subtitle={note.subtitle}
-            link={note.link}
-            tags={note.tags}
-            dateAdded={note.dateAdded}
-            onDelete={() => console.log(`Delete card ${idx}`)}
-          />
-        ))}
-      </div> */}
+      <div className="grid gap-4 grid-cols-1 md:grid-cols-4">
+        {notes.length > 0 ? (
+          filteredNotes.map((note) => (
+            <Card
+              key={note._id}
+              title={note.title}
+              type={note.type}
+              link={note.link}
+              tags={note.tags ? note.tags.split(",").map((tag) => tag.trim()) : []}
+              dateAdded={note.createdAt}
+              onDelete={() => handleDeleteNote(note._id)}
+            />
+          ))
+        ) : (
+          <p className="text-gray-500 col-span-full text-center">
+            No notes yet. Click "Add Content" to create one.
+          </p>
+        )}
+      </div>
 
-
-
-    </div >
+      <CreateContentModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSubmit={handleCreateNote}
+      />
+    </div>
   );
 };
 

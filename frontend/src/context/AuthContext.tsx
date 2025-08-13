@@ -9,12 +9,12 @@ interface AuthContextType {
 
 export const AuthContext = createContext<AuthContextType>({
   token: null,
-  setToken: () => {},
-  logout: () => {},
+  setToken: () => { },
+  logout: () => { },
 });
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [token, setTokenState] = useState<string | null>(null);
+  const [token, setTokenState] = useState<string | null>(() => localStorage.getItem("token"));
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
@@ -43,5 +43,4 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-// ✅ Add this custom hook
 export const useAuth = () => useContext(AuthContext);

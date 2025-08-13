@@ -1,4 +1,3 @@
-// src/pages/Signup.tsx
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import SigninModal from "../components/SigninModal";

@@ -1,28 +1,27 @@
 import React, { useState, useEffect } from "react";
-import {
-  FaTwitter,
-  FaVideo,
-  FaFileAlt,
-  FaLink,
-  FaTags,
-  FaBars,
-  FaTimes,
-} from "react-icons/fa";
+import { FaLinkedin, FaTwitter, FaYoutube, FaBlog, FaBook, FaStar, FaBars, FaTimes } from "react-icons/fa";
+
+import { AiFillDatabase } from "react-icons/ai";
+
+interface NavbarProps {
+  selected: string;
+  setSelected: (val: string) => void;
+}
 
 const filters = [
-  { label: "Tweets", value: "tweet", icon: <FaTwitter /> },
-  { label: "Videos", value: "video", icon: <FaVideo /> },
-  { label: "Documents", value: "document", icon: <FaFileAlt /> },
-  { label: "Links", value: "link", icon: <FaLink /> },
-  { label: "Tags", value: "tag", icon: <FaTags /> },
+  { label: "All", value: "", iconColor: "text-yellow-500", icon: AiFillDatabase },
+  { label: "LinkedIn", value: "linkedin", iconColor: "text-blue-600", icon: FaLinkedin },
+  { label: "Tweets", value: "tweet", iconColor: "text-sky-500", icon: FaTwitter },
+  { label: "YouTube", value: "youtube", iconColor: "text-red-500", icon: FaYoutube },
+  { label: "Blogs", value: "blog", iconColor: "text-orange-500", icon: FaBlog },
+  { label: "Resources", value: "resource", iconColor: "text-green-600", icon: FaBook },
+  { label: "Important", value: "important", iconColor: "text-yellow-500", icon: FaStar },
 ];
 
-const Navbar: React.FC = () => {
-  const [selected, setSelected] = useState<string>("");
+const Navbar: React.FC<NavbarProps> = ({ selected, setSelected }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Detect screen size
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 768);
     checkMobile();
@@ -41,20 +40,25 @@ const Navbar: React.FC = () => {
           </div>
 
           <nav className="flex flex-col gap-2">
-            {filters.map((f) => (
-              <button
-                key={f.value}
-                onClick={() => setSelected(f.value)}
-                className={`flex items-center gap-3 p-2 rounded-lg text-left transition ${
-                  selected === f.value
+            {filters.map((f) => {
+              const Icon = f.icon;
+              return (
+                <button
+                  key={f.value}
+                  onClick={() => setSelected(f.value === selected ? "" : f.value)}
+                  className={`flex items-center gap-3 py-2 px-3 rounded-lg text-left transition ${selected === f.value
                     ? "bg-purple-500 text-white font-medium"
                     : "hover:bg-purple-300 text-purple-500"
-                }`}
-              >
-                <span className="text-lg">{f.icon}</span>
-                {f.label}
-              </button>
-            ))}
+                    }`}
+                >
+                  <Icon
+                    className={`text-lg ${selected === f.value ? "text-white" : f.iconColor
+                      }`}
+                  />
+                  {f.label}
+                </button>
+              );
+            })}
           </nav>
 
           <div className="mt-auto text-xs text-gray-400">v1.0.0 © 2025</div>
@@ -64,7 +68,6 @@ const Navbar: React.FC = () => {
       {/* Mobile Menu */}
       {isMobile && (
         <>
-          {/* Floating Menu Button */}
           <div className="fixed bottom-4 right-4 z-50">
             <button
               onClick={() => setMenuOpen(!menuOpen)}
@@ -74,29 +77,33 @@ const Navbar: React.FC = () => {
             </button>
           </div>
 
-          {/* Slide-up Menu */}
           <div
-            className={`fixed bottom-0 left-0 w-full bg-white border-t shadow-lg rounded-t-2xl p-4 transition-transform duration-300 z-40
-              ${menuOpen ? "translate-y-0" : "translate-y-full"}`}
+            className={`fixed bottom-0 left-0 w-full bg-white border-t shadow-lg rounded-t-2xl p-4 transition-transform duration-300 z-40 ${menuOpen ? "translate-y-0" : "translate-y-full"
+              }`}
           >
             <div className="grid grid-cols-3 gap-4">
-              {filters.map((f) => (
-                <button
-                  key={f.value}
-                  onClick={() => {
-                    setSelected(f.value);
-                    setMenuOpen(false);
-                  }}
-                  className={`flex flex-col items-center gap-1 p-2 rounded-lg transition ${
-                    selected === f.value
+              {filters.map((f) => {
+                const Icon = f.icon;
+                return (
+                  <button
+                    key={f.value}
+                    onClick={() => {
+                      setSelected(f.value === selected ? "" : f.value);
+                      setMenuOpen(false);
+                    }}
+                    className={`flex flex-col items-center gap-1 p-2 rounded-lg transition ${selected === f.value
                       ? "bg-purple-500 text-white font-medium"
                       : "hover:bg-purple-300 text-purple-500"
-                  }`}
-                >
-                  <span className="text-lg">{f.icon}</span>
-                  <span className="text-xs">{f.label}</span>
-                </button>
-              ))}
+                      }`}
+                  >
+                    <Icon
+                      className={`text-lg ${selected === f.value ? "text-white" : f.iconColor
+                        }`}
+                    />
+                    <span className="text-xs">{f.label}</span>
+                  </button>
+                );
+              })}
             </div>
           </div>
         </>

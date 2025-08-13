@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { FaTimes } from "react-icons/fa";
 
+interface SignupForm {
+  name: string;
+  email: string;
+  password: string;
+}
+
 interface SignupModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSwitchToLogin: () => void;
-  onSubmit: (formData: {
-    name: string;
-    email: string;
-    password: string;
-  }) => void;
+  onSubmit: (formData: SignupForm) => void;
 }
 
 const SignupModal: React.FC<SignupModalProps> = ({
@@ -18,7 +20,7 @@ const SignupModal: React.FC<SignupModalProps> = ({
   onSwitchToLogin,
   onSubmit,
 }) => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<SignupForm>({
     name: "",
     email: "",
     password: "",
@@ -40,7 +42,7 @@ const SignupModal: React.FC<SignupModalProps> = ({
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg shadow-lg w-full max-w-lg p-6 relative">
-        {/* Header */}
+
         <div className="flex justify-between items-center mb-5">
           <h2 className="text-xl font-semibold text-gray-800">Sign Up</h2>
           <button
@@ -51,7 +53,6 @@ const SignupModal: React.FC<SignupModalProps> = ({
           </button>
         </div>
 
-        {/* Form */}
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -100,13 +101,12 @@ const SignupModal: React.FC<SignupModalProps> = ({
 
           <button
             type="submit"
-            className="bg-purple-500 hover:bg-purple-700 text-white py-2 px-4 rounded-lg"
+            className="bg-purple-500 hover:bg-green-700 text-white py-2 px-4 rounded-lg"
           >
-            Sign Up
+            Create Account
           </button>
         </form>
 
-        {/* Switch link */}
         <p className="text-sm text-gray-600 mt-4">
           Already have an account?{" "}
           <button
@@ -115,9 +115,9 @@ const SignupModal: React.FC<SignupModalProps> = ({
               onClose();
               onSwitchToLogin();
             }}
-            className="text-purple-600 hover:underline"
+            className="text-blue-600 hover:underline"
           >
-            Log In
+            Sign In
           </button>
         </p>
       </div>
