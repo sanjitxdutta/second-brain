@@ -5,6 +5,8 @@ import CreateContentModal from "./CreateContentModal";
 import { useState, useEffect, useContext } from "react";
 import { contentApi } from "../api/contentApi";
 import { StoreContext } from "../context/StoreContext";
+import ShareModal from "./ShareModal";
+import { shareApi } from "../api/shareApi";
 
 interface Note {
   _id: string;
@@ -25,6 +27,8 @@ const NotesSection: React.FC<NotesSectionProps> = ({ selected }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [notes, setNotes] = useState<Note[]>([]);
   const { token } = useContext(StoreContext);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [shareLink, setShareLink] = useState("");
 
   const fetchNotes = async () => {
     try {
@@ -70,6 +74,19 @@ const NotesSection: React.FC<NotesSectionProps> = ({ selected }) => {
     }
   };
 
+    const handleShareBrain = async () => {
+  try {
+    const res = await shareApi.toggleShare(token, true); // enable sharing
+    if (res.success && res.link) {
+      setShareLink(res.link);
+      setIsShareModalOpen(true);
+    }
+  } catch (err) {
+    console.error("Error sharing brain:", err);
+  }
+};
+
+
   const filteredNotes = selected
     ? notes.filter((note) => note.type?.toLowerCase() === selected.toLowerCase())
     : notes;
@@ -94,6 +111,7 @@ const NotesSection: React.FC<NotesSectionProps> = ({ selected }) => {
             size="md"
             text="Share Brain"
             startIcon={<FaShareAlt />}
+            onClick={handleShareBrain}
           />
           <Button
             variant="primary"
@@ -111,6 +129,7 @@ const NotesSection: React.FC<NotesSectionProps> = ({ selected }) => {
           size="sm"
           text="Share Brain"
           startIcon={<FaShareAlt />}
+          onClick={handleShareBrain}
         />
         <Button
           variant="primary"
@@ -145,6 +164,12 @@ const NotesSection: React.FC<NotesSectionProps> = ({ selected }) => {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onSubmit={handleCreateNote}
+      />
+
+      <ShareModal
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        link={shareLink}
       />
     </div>
   );
