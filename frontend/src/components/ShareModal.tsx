@@ -25,8 +25,7 @@ const ShareModal: React.FC<ShareModalProps> = ({ isOpen, onClose, link }) => {
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg shadow-lg w-full max-w-lg p-6 relative">
-        
-        {/* Header */}
+
         <div className="flex justify-between items-center mb-5">
           <h2 className="text-xl font-semibold text-gray-800">Share Your Brain</h2>
           <button
@@ -37,8 +36,7 @@ const ShareModal: React.FC<ShareModalProps> = ({ isOpen, onClose, link }) => {
           </button>
         </div>
 
-        {/* Link box */}
-        <div className="flex items-center border rounded-lg p-2 bg-gray-50">
+        <div className="flex items-center border rounded-lg py-2 px-3 bg-gray-50">
           <input
             type="text"
             value={link}
@@ -47,7 +45,7 @@ const ShareModal: React.FC<ShareModalProps> = ({ isOpen, onClose, link }) => {
           />
           <button
             onClick={handleCopy}
-            className="ml-2 text-purple-500 hover:text-purple-700"
+            className="ml-2 text-gray-500 hover:text-purple-500"
             title="Copy link"
           >
             {copied ? <FaCheck /> : <FaCopy />}

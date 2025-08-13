@@ -27,7 +27,7 @@ const PublicNotesSection: React.FC<PublicNotesSectionProps> = ({ selected }) => 
         .then((data) => {
           if (data?.content && Array.isArray(data.content)) {
             setNotes(data.content);
-            setUsername(data.username || "Unknown User"); // store username
+            setUsername(data.username || "Unknown User");
           } else {
             setNotes([]);
             setUsername("");
@@ -53,13 +53,13 @@ const PublicNotesSection: React.FC<PublicNotesSectionProps> = ({ selected }) => 
           <span className="text-xl font-bold text-gray-800">Second Brain</span>
         </div>
         <h2 className="text-lg font-bold mt-3">
-          Shared Brain by <span className="text-purple-600">{username}</span>
+          Shared Brain by <span className="text-purple-500">{username}</span>
         </h2>
       </div>
 
       <div className="hidden md:flex items-center justify-between mb-6">
         <h2 className="text-xl font-bold">
-          Shared Brain by <span className="text-purple-600">{username}</span>
+          Shared Brain by <span className="text-purple-500">{username}</span>
         </h2>
       </div>
 

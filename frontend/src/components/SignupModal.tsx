@@ -39,6 +39,8 @@ const SignupModal: React.FC<SignupModalProps> = ({
     onClose();
   };
 
+  const inputClasses = "w-full border border-gray-300 rounded py-2 px-3 text-sm outline-none focus:border-purple-500 focus:ring-0 bg-white";
+
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg shadow-lg w-full max-w-lg p-6 relative">
@@ -64,7 +66,7 @@ const SignupModal: React.FC<SignupModalProps> = ({
               value={formData.name}
               onChange={handleChange}
               placeholder="Your name"
-              className="w-full border rounded py-2 px-3 text-sm"
+              className={inputClasses}
               required
             />
           </div>
@@ -79,7 +81,7 @@ const SignupModal: React.FC<SignupModalProps> = ({
               value={formData.email}
               onChange={handleChange}
               placeholder="you@example.com"
-              className="w-full border rounded py-2 px-3 text-sm"
+              className={inputClasses}
               required
             />
           </div>
@@ -94,7 +96,7 @@ const SignupModal: React.FC<SignupModalProps> = ({
               value={formData.password}
               onChange={handleChange}
               placeholder="********"
-              className="w-full border rounded py-2 px-3 text-sm"
+              className={inputClasses}
               required
             />
           </div>

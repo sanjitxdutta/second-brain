@@ -42,10 +42,12 @@ const CreateContentModal: React.FC<ContentModalProps> = ({
     onClose();
   };
 
+  const inputClasses =
+    "w-full border border-gray-300 rounded py-2 px-3 text-sm outline-none focus:border-purple-500 focus:ring-0";
+
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg shadow-lg w-full max-w-lg p-6 relative">
-
         <div className="flex justify-between items-center mb-5">
           <h2 className="text-xl font-semibold text-gray-800">
             Create Content
@@ -60,13 +62,15 @@ const CreateContentModal: React.FC<ContentModalProps> = ({
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Type</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Type
+            </label>
             <div className="relative">
               <select
                 name="type"
                 value={formData.type}
                 onChange={handleChange}
-                className="w-full border appearance-none rounded py-2 px-3 text-sm"
+                className={`${inputClasses} appearance-none`}
               >
                 <option value="linkedin">Linkedin</option>
                 <option value="tweet">Tweet</option>
@@ -89,7 +93,7 @@ const CreateContentModal: React.FC<ContentModalProps> = ({
               value={formData.title}
               onChange={handleChange}
               placeholder="Enter title"
-              className="w-full border rounded py-2 px-3 text-sm"
+              className={inputClasses}
               required
             />
           </div>
@@ -104,7 +108,8 @@ const CreateContentModal: React.FC<ContentModalProps> = ({
               value={formData.link}
               onChange={handleChange}
               placeholder="https://example.com"
-              className="w-full border rounded py-2 px-3 text-sm"
+              className={inputClasses}
+              required
             />
           </div>
 
@@ -118,7 +123,7 @@ const CreateContentModal: React.FC<ContentModalProps> = ({
               value={formData.tags}
               onChange={handleChange}
               placeholder="tag1, tag2, tag3"
-              className="w-full border rounded py-2 px-3 text-sm"
+              className={inputClasses}
             />
           </div>
 

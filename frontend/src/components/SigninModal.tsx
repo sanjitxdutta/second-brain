@@ -5,10 +5,7 @@ interface SigninModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSwitchToSignup: () => void;
-  onSubmit: (formData: {
-    email: string;
-    password: string;
-  }) => void;
+  onSubmit: (formData: { email: string; password: string }) => void;
 }
 
 const SigninModal: React.FC<SigninModalProps> = ({
@@ -35,10 +32,11 @@ const SigninModal: React.FC<SigninModalProps> = ({
     onClose();
   };
 
+  const inputClasses = "w-full border border-gray-300 rounded py-2 px-3 text-sm outline-none focus:border-purple-500 focus:ring-0 bg-white";
+
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg shadow-lg w-full max-w-lg p-6 relative">
-
         <div className="flex justify-between items-center mb-5">
           <h2 className="text-xl font-semibold text-gray-800">Sign In</h2>
           <button
@@ -60,7 +58,7 @@ const SigninModal: React.FC<SigninModalProps> = ({
               value={formData.email}
               onChange={handleChange}
               placeholder="you@example.com"
-              className="w-full border rounded py-2 px-3 text-sm"
+              className={inputClasses}
               required
             />
           </div>
@@ -75,7 +73,7 @@ const SigninModal: React.FC<SigninModalProps> = ({
               value={formData.password}
               onChange={handleChange}
               placeholder="********"
-              className="w-full border rounded py-2 px-3 text-sm"
+              className={inputClasses}
               required
             />
           </div>

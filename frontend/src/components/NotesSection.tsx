@@ -50,7 +50,7 @@ const NotesSection: React.FC<NotesSectionProps> = ({ selected }) => {
       setTimeout(() => {
         fetchNotes();
         console.log("hello");
-      }, 200); // small delay ensures API has the new user data
+      }, 200);
     }
   }, [token]);
 
