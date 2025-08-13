@@ -4,7 +4,6 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 export const shareApi = {
     toggleShare: async (token: string | null, share: boolean) => {
-        console.log(API_URL);
         const res = await axios.post(
             `${API_URL}/api/share`,
             { share },

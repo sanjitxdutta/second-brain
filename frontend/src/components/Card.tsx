@@ -85,7 +85,7 @@ const Card: React.FC<CardProps> = ({
               <img
                 src={preview.image}
                 alt={preview.title || title}
-                className="w-full h-full object-cover"
+                className="w-full h-auto object-cover"
                 onError={(e) => {
                   e.currentTarget.src = "/placeholder.png";
                 }}
@@ -94,7 +94,7 @@ const Card: React.FC<CardProps> = ({
               <img
                 src="/placeholder.png"
                 alt="No Preview"
-                className="w-10 h-10 opacity-60"
+                className="w-full h-auto object-contain opacity-60"
               />
             )}
           </div>
