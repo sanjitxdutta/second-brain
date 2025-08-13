@@ -6,6 +6,7 @@ import SigninPage from "./pages/Signin";
 import { AuthProvider } from "./context/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
 import { StoreProvider } from "./context/StoreContext";
+import PublicDashboard from "./pages/PublicDashboard";
 
 const App: React.FC = () => {
   return (
@@ -20,6 +21,7 @@ const App: React.FC = () => {
                 <Dashboard />
               </PrivateRoute>
             } />
+            <Route path="/share/:shareId" element={<PublicDashboard />} />
             <Route path="/" element={<Navigate to="/signin" replace />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>

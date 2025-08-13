@@ -74,18 +74,20 @@ const NotesSection: React.FC<NotesSectionProps> = ({ selected }) => {
     }
   };
 
-    const handleShareBrain = async () => {
-  try {
-    const res = await shareApi.toggleShare(token, true); // enable sharing
-    if (res.success && res.link) {
-      setShareLink(res.link);
-      setIsShareModalOpen(true);
-    }
-  } catch (err) {
-    console.error("Error sharing brain:", err);
-  }
-};
+  const handleShareBrain = async () => {
+    try {
+      const res = await shareApi.toggleShare(token, true);
+      if (res.success && res.link) {
+        const shareId = res.link.split("/").pop();
+        const frontendLink = `${window.location.origin}/share/${shareId}`;
 
+        setShareLink(frontendLink);
+        setIsShareModalOpen(true);
+      }
+    } catch (err) {
+      console.error("Error sharing brain:", err);
+    }
+  };
 
   const filteredNotes = selected
     ? notes.filter((note) => note.type?.toLowerCase() === selected.toLowerCase())

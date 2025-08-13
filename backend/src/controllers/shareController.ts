@@ -29,7 +29,7 @@ const toggleSharing = async (req: Request, res: Response) => {
 
         res.json({
             success: true,
-            link: share ? `http://localhost:3000/api/share/${user.shareLink}` : null
+            link: share ? `http://localhost:${process.env.port}/api/share/${user.shareLink}` : null
         });
     } catch (err) {
         console.error(err);
