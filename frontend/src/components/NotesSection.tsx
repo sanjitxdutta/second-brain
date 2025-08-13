@@ -4,7 +4,7 @@ import Card from "./Card";
 import CreateContentModal from "./CreateContentModal";
 import { useState, useEffect, useContext } from "react";
 import { contentApi } from "../api/contentApi";
-import { StoreContext } from "../context/StoreContext";
+import { useAuth } from "../context/AuthContext";
 import ShareModal from "./ShareModal";
 import { shareApi } from "../api/shareApi";
 
@@ -26,7 +26,7 @@ type CreateNoteData = Omit<Note, "_id" | "createdAt">;
 const NotesSection: React.FC<NotesSectionProps> = ({ selected }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [notes, setNotes] = useState<Note[]>([]);
-  const { token } = useContext(StoreContext);
+  const { token } = useAuth();
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [shareLink, setShareLink] = useState("");
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaTimes } from "react-icons/fa";
 
 interface SignupForm {
@@ -12,6 +12,8 @@ interface SignupModalProps {
   onClose: () => void;
   onSwitchToLogin: () => void;
   onSubmit: (formData: SignupForm) => void;
+  errors?: { field: string; message: string }[];
+  setErrors?: (errors: { field: string; message: string }[]) => void;
 }
 
 const SignupModal: React.FC<SignupModalProps> = ({
@@ -19,12 +21,20 @@ const SignupModal: React.FC<SignupModalProps> = ({
   onClose,
   onSwitchToLogin,
   onSubmit,
+  errors,
+  setErrors,
 }) => {
   const [formData, setFormData] = useState<SignupForm>({
     name: "",
     email: "",
     password: "",
   });
+
+  useEffect(() => {
+    if (!isOpen) {
+      setFormData({ name: "", email: "", password: "" });
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -35,7 +45,11 @@ const SignupModal: React.FC<SignupModalProps> = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(formData);
+  };
+
+  const handleClose = () => {
     setFormData({ name: "", email: "", password: "" });
+    if (setErrors) setErrors([]);
     onClose();
   };
 
@@ -44,16 +58,23 @@ const SignupModal: React.FC<SignupModalProps> = ({
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg shadow-lg w-full max-w-lg p-6 relative">
-
         <div className="flex justify-between items-center mb-5">
           <h2 className="text-xl font-semibold text-gray-800">Sign Up</h2>
           <button
-            onClick={onClose}
+            onClick={handleClose}
             className="text-xl text-gray-500 hover:text-red-500 transition-colors"
           >
             <FaTimes className="w-4 h-4" />
           </button>
         </div>
+
+        {errors && errors.length > 0 && (
+          <div className="bg-red-100 text-red-700 p-2 rounded mb-3 text-xs">
+            {errors.map((err, idx) => (
+              <p key={idx}>{err.message}</p>
+            ))}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>
@@ -114,7 +135,7 @@ const SignupModal: React.FC<SignupModalProps> = ({
           <button
             type="button"
             onClick={() => {
-              onClose();
+              handleClose();
               onSwitchToLogin();
             }}
             className="text-blue-600 hover:underline"

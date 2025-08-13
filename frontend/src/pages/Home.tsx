@@ -23,6 +23,9 @@ const Home: React.FC = () => {
     const [messageIndex, setMessageIndex] = useState(0);
     const [showSignup, setShowSignup] = useState(false);
     const [showSignin, setShowSignin] = useState(false);
+    const [signupErrors, setSignupErrors] = useState<{ field: string; message: string }[]>([]);
+    const [signinError, setSigninError] = useState<string | null>(null);
+
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -36,8 +39,14 @@ const Home: React.FC = () => {
             const { token } = await authApi.signup(formData.name, formData.email, formData.password);
             setToken(token);
             navigate("/dashboard");
-        } catch (err) {
-            console.error("Signup failed:", err);
+        } catch (err: any) {
+            if (err.response?.data?.errors) {
+                setSignupErrors(err.response.data.errors);
+            } else if (err.response?.data?.message) {
+                setSignupErrors([{ field: "general", message: err.response.data.message }]);
+            } else {
+                setSignupErrors([{ field: "general", message: "Something went wrong" }]);
+            }
         }
     };
 
@@ -46,10 +55,15 @@ const Home: React.FC = () => {
             const { token } = await authApi.signin(formData.email, formData.password);
             setToken(token);
             navigate("/dashboard");
-        } catch (err) {
-            console.error("Signin failed:", err);
+        } catch (err: any) {
+            if (err.response?.data?.message) {
+                setSigninError(err.response.data.message);
+            } else {
+                setSigninError("Something went wrong");
+            }
         }
     };
+
 
     return (
         <div
@@ -128,6 +142,8 @@ const Home: React.FC = () => {
                     setShowSignin(true);
                 }}
                 onSubmit={handleSignup}
+                errors={signupErrors}
+                setErrors={setSignupErrors}
             />
 
             <SigninModal
