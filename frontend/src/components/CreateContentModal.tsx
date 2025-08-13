@@ -1,4 +1,3 @@
-// src/components/CreateContentModal.tsx
 import React, { useState } from "react";
 import { FaTimes, FaChevronDown } from "react-icons/fa";
 
