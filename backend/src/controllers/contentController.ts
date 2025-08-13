@@ -1,13 +1,29 @@
 import { Request, Response } from "express";
 import contentModel from "../models/contentModel";
+import { contentSchema } from "../validations/contentValidation";
 
 // add content
 const addContent = async (req: Request, res: Response) => {
 
-    const { type, title, link, tags } = req.body;
-
     // @ts-ignore
     const userId = req.userId;
+
+    // add content
+    const { success, data, error } = contentSchema.safeParse(req.body);
+
+    if (!success) {
+        const formattedErrors = error.issues.map((err) => ({
+            field: err.path[0],
+            message: err.message,
+        }));
+
+        return res.status(400).json({
+            success: false,
+            errors: formattedErrors,
+        });
+    }
+
+    const { type, title, link, tags } = data;
 
     try {
         const newContent = new contentModel({

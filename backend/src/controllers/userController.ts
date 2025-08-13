@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import userModel from "../models/userModel";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt-ts";
-import { userSignupSchema, UserSignupInput } from "../validations/userValidation";
+import { userSignupSchema } from "../validations/userValidation";
 
 const createToken = (id: string) => {
     if (!process.env.JWT_SECRET) {

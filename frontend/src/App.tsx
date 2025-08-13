@@ -30,7 +30,7 @@ const App: React.FC = () => {
           pauseOnFocusLoss
           draggable
           pauseOnHover
-          theme="colored"
+          theme="dark"
         />
       </BrowserRouter>
     </AuthProvider>
