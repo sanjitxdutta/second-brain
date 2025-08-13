@@ -7,6 +7,7 @@ import SignupModal from "../components/SignupModal";
 import SigninModal from "../components/SigninModal";
 import { authApi } from "../api/authApi";
 import { AuthContext } from "../context/AuthContext";
+import { toast } from "react-toastify";
 
 const rotatingMessages = [
     "Your notes, everywhere",
@@ -38,14 +39,18 @@ const Home: React.FC = () => {
         try {
             const { token } = await authApi.signup(formData.name, formData.email, formData.password);
             setToken(token);
+            toast.success("Account created successfully! 🎉");
             navigate("/dashboard");
         } catch (err: any) {
             if (err.response?.data?.errors) {
                 setSignupErrors(err.response.data.errors);
+                toast.error("Please fix the highlighted errors.");
             } else if (err.response?.data?.message) {
                 setSignupErrors([{ field: "general", message: err.response.data.message }]);
+                toast.error(err.response.data.message);
             } else {
                 setSignupErrors([{ field: "general", message: "Something went wrong" }]);
+                toast.error("Something went wrong. Please try again.");
             }
         }
     };
@@ -54,12 +59,15 @@ const Home: React.FC = () => {
         try {
             const { token } = await authApi.signin(formData.email, formData.password);
             setToken(token);
+            toast.success("Signed in successfully! 🚀");
             navigate("/dashboard");
         } catch (err: any) {
             if (err.response?.data?.message) {
                 setSigninError(err.response.data.message);
+                toast.error(err.response.data.message);
             } else {
                 setSigninError("Something went wrong");
+                toast.error("Something went wrong. Please try again.");
             }
         }
     };
