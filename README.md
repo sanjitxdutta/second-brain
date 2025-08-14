@@ -48,6 +48,11 @@ It acts as your **personal knowledge hub**, with a clean UI and secure backend.
 ## 🌍 Live Demo
 🔗 **Deployed Link:** [https://second-brainx.vercel.app](https://second-brainx.vercel.app)
 
+<img width="1364" height="628" alt="Screenshot 2025-08-14 205142" src="https://github.com/user-attachments/assets/c0c9a730-7bb2-48f2-9af3-ae1de02fc660" />
+<img width="1899" height="865" alt="Screenshot 2025-08-14 211142" src="https://github.com/user-attachments/assets/1e7e23a1-cb14-4ee2-b70d-acdf482d28be" />
+<img width="1899" height="862" alt="Screenshot 2025-08-14 211206" src="https://github.com/user-attachments/assets/200f30eb-69c6-41e6-8911-edc394b418aa" />
+<img width="1898" height="861" alt="Screenshot 2025-08-14 211238" src="https://github.com/user-attachments/assets/ff672128-557b-45eb-b466-e417e2dbd2bc" />
+
 ---
 
 ## 📂 Folder Structure
