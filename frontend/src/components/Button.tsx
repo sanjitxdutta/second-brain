@@ -31,24 +31,40 @@ const iconSizeStyles = {
     lg: "text-lg"
 };
 
-const defaultStyles =
-    "rounded flex items-center justify-center text-center font-semibold";
+const defaultStyles = "rounded flex items-center justify-center text-center font-semibold";
 
 export const Button = (props: ButtonProps) => {
     const [isSmallScreen, setIsSmallScreen] = useState(false);
 
     useEffect(() => {
-        if (!props.responsiveBreakpoint) {
-            setIsSmallScreen(false);
-            return;
-        }
+        if (!props.responsiveBreakpoint) return;
 
         const checkWidth = () => setIsSmallScreen(window.innerWidth < 485);
         checkWidth();
-
         window.addEventListener("resize", checkWidth);
         return () => window.removeEventListener("resize", checkWidth);
     }, [props.responsiveBreakpoint]);
+
+    if (!props.responsiveBreakpoint) {
+        return (
+            <button
+                className={`${defaultStyles} ${variantStyles[props.variant]} ${sizeStyles[props.size]} w-full justify-center md:w-auto`}
+                onClick={props.onClick}
+            >
+                {props.startIcon && (
+                    <div className={`pr-2 ${iconSizeStyles[props.size]}`}>
+                        {props.startIcon}
+                    </div>
+                )}
+                {props.text}
+                {props.endIcon && (
+                    <div className={`pl-2 ${iconSizeStyles[props.size]}`}>
+                        {props.endIcon}
+                    </div>
+                )}
+            </button>
+        );
+    }
 
     return (
         <button
