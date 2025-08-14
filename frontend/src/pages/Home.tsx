@@ -37,7 +37,7 @@ const Home: React.FC = () => {
         try {
             const { token } = await authApi.signup(formData.name, formData.email, formData.password);
             setToken(token);
-            toast.success("Account created successfully! 🎉");
+            toast.success("Account created successfully!");
             navigate("/dashboard");
         } catch (err: any) {
             if (err.response?.data?.errors) {
@@ -57,7 +57,7 @@ const Home: React.FC = () => {
         try {
             const { token } = await authApi.signin(formData.email, formData.password);
             setToken(token);
-            toast.success("Signed in successfully! 🚀");
+            toast.success("Signed in successfully!");
             navigate("/dashboard");
             return true;
         } catch (err: any) {
