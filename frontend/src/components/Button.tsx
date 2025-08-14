@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import type { ReactElement } from "react";
 
 type Variant = "primary" | "secondary";
@@ -13,7 +14,7 @@ interface ButtonProps {
 }
 
 const variantStyles = {
-    primary: "bg-purple-500 text-white ",
+    primary: "bg-purple-500 text-white",
     secondary: "bg-purple-300 text-purple-500"
 };
 
@@ -29,17 +30,44 @@ const iconSizeStyles = {
     lg: "text-lg"
 };
 
-const defaultStyles = "rounded flex items-center justify-center text-center font-semibold";
+const defaultStyles =
+    "rounded flex items-center justify-center text-center font-semibold";
 
 export const Button = (props: ButtonProps) => {
+    const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+    useEffect(() => {
+        const checkWidth = () => setIsSmallScreen(window.innerWidth < 485);
+        checkWidth();
+        window.addEventListener("resize", checkWidth);
+        return () => window.removeEventListener("resize", checkWidth);
+    }, []);
+
     return (
         <button
             className={`${defaultStyles} ${variantStyles[props.variant]} ${sizeStyles[props.size]} w-full justify-center md:w-auto`}
             onClick={props.onClick}
+            aria-label={props.text}
         >
-            {props.startIcon ? (<div className={`pr-2 ${iconSizeStyles[props.size]}`}>{props.startIcon}</div>) : null}
-            {props.text}
-            {props.endIcon ? (<div className={`pl-2 ${iconSizeStyles[props.size]}`}>{props.endIcon}</div>) : null}
+            {props.startIcon ? (
+                <div
+                    className={`${iconSizeStyles[props.size]} ${!isSmallScreen && props.text ? "pr-2" : ""
+                        }`}
+                >
+                    {props.startIcon}
+                </div>
+            ) : null}
+
+            {!isSmallScreen && props.text}
+
+            {props.endIcon ? (
+                <div
+                    className={`${iconSizeStyles[props.size]} ${!isSmallScreen && props.text ? "pl-2" : ""
+                        }`}
+                >
+                    {props.endIcon}
+                </div>
+            ) : null}
         </button>
     );
 };
