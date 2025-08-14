@@ -1,16 +1,17 @@
 {
   "compilerOptions": {
-    "jsx": "react-jsx",       // Enables React 17+ JSX transform
-    "lib": ["dom", "esnext"], // Includes DOM and latest ES features
-    "types": ["react"],       // Loads React's type definitions
+    "jsx": "react-jsx",
+    "lib": ["dom", "esnext"],
+    "types": ["react"],
     "module": "esnext",
     "target": "esnext",
-    "moduleResolution": "node",
-    "allowJs": true,
+    "moduleResolution": "bundler",
+    "allowJs": false,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "strict": true
+    "strict": true,
+    "noEmit": true
   },
-  "include": ["src"]
+  "include": ["src", "vite.config.ts"]
 }
