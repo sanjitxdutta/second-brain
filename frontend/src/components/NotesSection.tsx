@@ -152,6 +152,7 @@ const NotesSection: React.FC<NotesSectionProps> = ({ selected }) => {
           text="Log out"
           startIcon={<FaSignOutAlt />}
           onClick={logout}
+          responsiveBreakpoint
         />
         <Button
           variant="secondary"
@@ -159,6 +160,7 @@ const NotesSection: React.FC<NotesSectionProps> = ({ selected }) => {
           text="Share Brain"
           startIcon={<FaShareAlt />}
           onClick={handleShareBrain}
+          responsiveBreakpoint
         />
         <Button
           variant="primary"
@@ -166,6 +168,7 @@ const NotesSection: React.FC<NotesSectionProps> = ({ selected }) => {
           text="Add Content"
           startIcon={<FaPlus />}
           onClick={() => setIsModalOpen(true)}
+          responsiveBreakpoint
         />
       </div>
 

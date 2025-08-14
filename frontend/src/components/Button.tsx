@@ -11,6 +11,7 @@ interface ButtonProps {
     startIcon?: ReactElement;
     endIcon?: ReactElement;
     onClick?: () => void;
+    responsiveBreakpoint?: boolean;
 }
 
 const variantStyles = {
@@ -37,11 +38,17 @@ export const Button = (props: ButtonProps) => {
     const [isSmallScreen, setIsSmallScreen] = useState(false);
 
     useEffect(() => {
+        if (!props.responsiveBreakpoint) {
+            setIsSmallScreen(false);
+            return;
+        }
+
         const checkWidth = () => setIsSmallScreen(window.innerWidth < 485);
         checkWidth();
+
         window.addEventListener("resize", checkWidth);
         return () => window.removeEventListener("resize", checkWidth);
-    }, []);
+    }, [props.responsiveBreakpoint]);
 
     return (
         <button
@@ -49,25 +56,25 @@ export const Button = (props: ButtonProps) => {
             onClick={props.onClick}
             aria-label={props.text}
         >
-            {props.startIcon ? (
+            {props.startIcon && (
                 <div
                     className={`${iconSizeStyles[props.size]} ${!isSmallScreen && props.text ? "pr-2" : ""
                         }`}
                 >
                     {props.startIcon}
                 </div>
-            ) : null}
+            )}
 
             {!isSmallScreen && props.text}
 
-            {props.endIcon ? (
+            {props.endIcon && (
                 <div
                     className={`${iconSizeStyles[props.size]} ${!isSmallScreen && props.text ? "pl-2" : ""
                         }`}
                 >
                     {props.endIcon}
                 </div>
-            ) : null}
+            )}
         </button>
     );
 };

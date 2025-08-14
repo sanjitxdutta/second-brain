@@ -113,6 +113,7 @@ const PublicNotesSection: React.FC<PublicNotesSectionProps> = ({ selected }) => 
               text="Home"
               startIcon={<FaHome />}
               onClick={() => (window.location.href = "/dashboard")}
+              responsiveBreakpoint
             />
           ) : (
             <>
@@ -122,6 +123,7 @@ const PublicNotesSection: React.FC<PublicNotesSectionProps> = ({ selected }) => 
                 text="Sign In"
                 startIcon={<FaSignInAlt />}
                 onClick={() => setIsSigninOpen(true)}
+                responsiveBreakpoint
               />
               <Button
                 variant="primary"
@@ -129,6 +131,7 @@ const PublicNotesSection: React.FC<PublicNotesSectionProps> = ({ selected }) => 
                 text="Create Account"
                 startIcon={<FaUserPlus />}
                 onClick={() => setIsSignupOpen(true)}
+                responsiveBreakpoint
               />
             </>
           )}
@@ -143,7 +146,7 @@ const PublicNotesSection: React.FC<PublicNotesSectionProps> = ({ selected }) => 
         <div className="flex gap-3 items-center">
           {token ? (
             <Link to="/dashboard">
-              <Button variant="primary" size="md" text="Home" startIcon={<FaHome />} />
+              <Button variant="primary" size="md" text="Home" startIcon={<FaHome />} responsiveBreakpoint />
             </Link>
           ) : (
             <>
