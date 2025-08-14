@@ -5,7 +5,7 @@ interface SigninModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSwitchToSignup: () => void;
-  onSubmit: (formData: { email: string; password: string }) => void;
+  onSubmit: (formData: { email: string; password: string }) => Promise<boolean>;
 }
 
 const SigninModal: React.FC<SigninModalProps> = ({
@@ -25,11 +25,14 @@ const SigninModal: React.FC<SigninModalProps> = ({
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(formData);
+    const success = await onSubmit(formData);
     setFormData({ email: "", password: "" });
-    onClose();
+    if (success) {
+      setFormData({ email: "", password: "" });
+      onClose();
+    }
   };
 
   const inputClasses = "w-full border border-gray-300 rounded py-2 px-3 text-sm outline-none focus:border-purple-500 focus:ring-0 bg-white";

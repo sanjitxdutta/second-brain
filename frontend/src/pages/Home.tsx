@@ -25,8 +25,6 @@ const Home: React.FC = () => {
     const [showSignup, setShowSignup] = useState(false);
     const [showSignin, setShowSignin] = useState(false);
     const [signupErrors, setSignupErrors] = useState<{ field: string; message: string }[]>([]);
-    const [signinError, setSigninError] = useState<string | null>(null);
-
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -61,14 +59,11 @@ const Home: React.FC = () => {
             setToken(token);
             toast.success("Signed in successfully! 🚀");
             navigate("/dashboard");
+            return true;
         } catch (err: any) {
-            if (err.response?.data?.message) {
-                setSigninError(err.response.data.message);
-                toast.error(err.response.data.message);
-            } else {
-                setSigninError("Something went wrong");
-                toast.error("Something went wrong. Please try again.");
-            }
+            console.error("Signin failed:", err);
+            toast.error("Invalid email or password");
+            return false;
         }
     };
 
