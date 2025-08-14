@@ -1,8 +1,8 @@
-import { FaShareAlt, FaPlus } from "react-icons/fa";
+import { FaShareAlt, FaPlus, FaSignOutAlt } from "react-icons/fa";
 import { Button } from "./Button";
 import Card from "./Card";
 import CreateContentModal from "./CreateContentModal";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { contentApi } from "../api/contentApi";
 import { useAuth } from "../context/AuthContext";
 import ShareModal from "./ShareModal";
@@ -27,7 +27,7 @@ type CreateNoteData = Omit<Note, "_id" | "createdAt">;
 const NotesSection: React.FC<NotesSectionProps> = ({ selected }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [notes, setNotes] = useState<Note[]>([]);
-  const { token } = useAuth();
+  const { token, logout } = useAuth();
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [shareLink, setShareLink] = useState("");
 
@@ -61,7 +61,7 @@ const NotesSection: React.FC<NotesSectionProps> = ({ selected }) => {
       if (res.success) {
         await fetchNotes();
         setIsModalOpen(false);
-        toast.success("Note added successfully! ✏️");
+        toast.success("Note added successfully!");
       }
     } catch (err) {
       console.error("Failed to add note", err);
@@ -74,7 +74,7 @@ const NotesSection: React.FC<NotesSectionProps> = ({ selected }) => {
       const res = await contentApi.deleteNote(token, id);
       if (res.success) {
         setNotes((prev) => prev.filter((n) => n._id !== id));
-        toast.success("Note deleted successfully! 🗑");
+        toast.success("Note deleted successfully!");
       }
     } catch (err) {
       console.error("Failed to delete note", err);
@@ -91,7 +91,7 @@ const NotesSection: React.FC<NotesSectionProps> = ({ selected }) => {
 
         setShareLink(frontendLink);
         setIsShareModalOpen(true);
-        toast.success("Brain shared successfully! 🔗");
+        toast.success("Brain shared successfully!");
       }
     } catch (err) {
       console.error("Error sharing brain:", err);
@@ -104,7 +104,6 @@ const NotesSection: React.FC<NotesSectionProps> = ({ selected }) => {
     : notes;
 
   return (
-
     <div className="px-4 md:px-8 py-4">
 
       <div className="md:hidden mb-4">
@@ -117,7 +116,14 @@ const NotesSection: React.FC<NotesSectionProps> = ({ selected }) => {
 
       <div className="hidden md:flex items-center justify-between mb-6">
         <h2 className="text-xl font-bold">All Notes</h2>
-        <div className="flex gap-3">
+        <div className="flex gap-3 items-center">
+          <Button
+            variant="secondary"
+            size="md"
+            text="Log out"
+            startIcon={<FaSignOutAlt />}
+            onClick={logout}
+          />
           <Button
             variant="secondary"
             size="md"
@@ -136,6 +142,13 @@ const NotesSection: React.FC<NotesSectionProps> = ({ selected }) => {
       </div>
 
       <div className="md:hidden flex gap-3 mb-4 w-full">
+        <Button
+          variant="secondary"
+          size="sm"
+          text="Log out"
+          startIcon={<FaSignOutAlt />}
+          onClick={logout}
+        />
         <Button
           variant="secondary"
           size="sm"
