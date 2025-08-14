@@ -8,6 +8,7 @@ import { useAuth } from "../context/AuthContext";
 import ShareModal from "./ShareModal";
 import { shareApi } from "../api/shareApi";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 interface Note {
   _id: string;
@@ -107,10 +108,13 @@ const NotesSection: React.FC<NotesSectionProps> = ({ selected }) => {
     <div className="px-4 md:px-8 py-4">
 
       <div className="md:hidden mb-4">
-        <div className="flex items-center gap-2">
+        <Link to="/dashboard" className="flex items-center gap-2 cursor-pointer group">
           <img src="/logo.png" alt="Second Brain Logo" className="w-6 h-6" />
-          <span className="text-xl font-bold text-gray-800">Second Brain</span>
-        </div>
+          <span className="text-xl font-bold text-gray-800 group-hover:text-purple-500 transition-colors">
+            Second Brain
+          </span>
+        </Link>
+
         <h2 className="text-lg font-bold mt-3">All Notes</h2>
       </div>
 

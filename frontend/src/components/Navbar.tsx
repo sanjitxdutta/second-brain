@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaLinkedin, FaTwitter, FaYoutube, FaBlog, FaBook, FaStar, FaBars, FaTimes } from "react-icons/fa";
-
 import { AiFillDatabase } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 interface NavbarProps {
   selected: string;
@@ -34,10 +34,12 @@ const Navbar: React.FC<NavbarProps> = ({ selected, setSelected }) => {
       {/* Desktop Sidebar */}
       {!isMobile && (
         <aside className="fixed top-0 left-0 h-screen w-64 bg-white border-r shadow-md flex flex-col p-4">
-          <div className="mb-6 flex items-center gap-3">
+          <Link to="/dashboard" className="mb-6 flex items-center gap-3 group cursor-pointer">
             <img src="/logo.png" alt="Second Brain Logo" className="w-6 h-6" />
-            <h1 className="text-xl font-bold text-gray-800">Second Brain</h1>
-          </div>
+            <h1 className="text-xl font-bold text-gray-800 group-hover:text-purple-500 transition-colors">
+              Second Brain
+            </h1>
+          </Link>
 
           <nav className="flex flex-col gap-2">
             {filters.map((f) => {
