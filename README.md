@@ -1,6 +1,5 @@
-
 <!-- Hero Section -->
-
+<p align="center"> <img src="https://second-brainx.vercel.app/second-brain-preview.png" alt="Second Brain Cover" width="100%"> </p>
 <h1 align="center">🧠 Second Brain</h1>
 <p align="center">Your personal second brain for storing, organizing, and sharing content — anytime, anywhere.</p>
 
