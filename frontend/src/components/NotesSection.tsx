@@ -51,7 +51,6 @@ const NotesSection: React.FC<NotesSectionProps> = ({ selected }) => {
     if (token) {
       setTimeout(() => {
         fetchNotes();
-        console.log("hello");
       }, 200);
     }
   }, [token]);
