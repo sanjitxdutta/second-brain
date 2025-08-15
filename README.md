@@ -55,23 +55,23 @@ It acts as your **personal knowledge hub**, with a clean UI and secure backend.
 
 ```bash
 second-brain/
-├─ backend/                                                                 # Express + MongoDB (TypeScript)
+├─ backend/                                                                 # Express + MongoDB 
 │ ├─ src/
 │ │ ├─ config/                                                              # App configuration
-│ │ ├─ controllers/                                                         # Route handlers (business logic)
+│ │ ├─ controllers/                                                         # Route handlers 
 │ │ ├─ middlewares/                                                         # Express middlewares
 │ │ ├─ models/                                                              # Mongoose schemas/model
 │ │ ├─ routes/                                                              # API route definitions
 │ │ ├─ validations/                                                         # Zod validation schemas
-│ │ └─ index.ts                                                             # Server entrypoint (mounts routes)
-│ ├─ .env                                                                   # Backend env vars (local only)
+│ │ └─ index.ts                                                             # Server entrypoint 
+│ ├─ .env                                                                   # Backend env vars 
 │ ├─ .gitignore
 │ ├─ package.json
 │ ├─ package-lock.json
 │ └─ tsconfig.json
 │
-├─ frontend/                                                                # React + Vite (TypeScript)
-│ ├─ public/                                                                # Static assets (favicons, OG images)
+├─ frontend/                                                                # React + Vite
+│ ├─ public/                                                                # Static assets 
 │ ├─ src/
 │ │ ├─ api/                                                                 # Axios wrappers / API clients
 │ │ ├─ components/                                                          # Reusable UI components
@@ -81,7 +81,7 @@ second-brain/
 │ │ ├─ main.tsx                                                             # React DOM entry
 │ │ ├─ index.css                                                            # Global styles
 │ │ └─ vite-env.d.ts                                                        # Vite TS types
-│ ├─ .env                                                                   # Frontend env vars (VITE_* only)
+│ ├─ .env                                                                   # Frontend env vars
 │ ├─ .gitignore
 │ ├─ eslint.config.js
 │ ├─ index.html
